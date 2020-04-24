@@ -109,6 +109,22 @@ $color-unuse:rgb(60,60,60);
     .panel-lyrics{
       width:100vw;
       height:100%;
+      text-align: center;
+      line-height: 2;
+      overflow: hidden;
+      .container{
+        transition: all .3s;
+        transform: translateY(-100px);
+        p{
+          font-size: 14px;
+          color:$color-default;
+          &.current{
+            font-size: 16px;
+            font-weight: bold;
+            color: $color;
+          }
+        }
+      }
     }
   }
   .footer{
@@ -130,17 +146,16 @@ $color-unuse:rgb(60,60,60);
       margin-top:30px;
       display: flex;
       align-items: center;
-      .time-start{ order: 1;}
-      .time-end{ order: 3;}
+      .time-start{ order: 1;margin-right:12px;}
+      .time-end{ order: 3;margin-left:10px;}
       .bar{
         order:2;
         flex-grow: 1;
         height:4px;
         background:$color-unuse;
         border-radius: 2px;
-        margin:0 10px;
         .progress{
-          width:20%;
+          width:0;
           height:100%;
           border-radius: 2px;
           background: $color-use;
@@ -149,10 +164,10 @@ $color-unuse:rgb(60,60,60);
             content: '';
             position:absolute;
             right:0;
-            top:-7px;
+            top:-4px;
             display: block;
-            width:16px;
-            height:16px;
+            width:10px;
+            height:10px;
             background: url("../svg/progress.svg") 0 0 no-repeat;
             background-size:contain;
           }
