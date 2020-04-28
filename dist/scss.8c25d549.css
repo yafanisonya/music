@@ -92,6 +92,7 @@
 }
 #player .panel .panel-effect .lyrics {
   text-align: center;
+  margin-top: 24px;
 }
 #player .panel .panel-effect .lyrics p {
   font-size: 14px;
@@ -104,6 +105,22 @@
 #player .panel .panel-lyrics {
   width: 100vw;
   height: 100%;
+  text-align: center;
+  line-height: 2;
+  overflow: hidden;
+}
+#player .panel .panel-lyrics .container {
+  transition: all 0.3s;
+  transform: translateY(-100px);
+}
+#player .panel .panel-lyrics .container p {
+  font-size: 14px;
+  color: #cccccc;
+}
+#player .panel .panel-lyrics .container p.current {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
 }
 #player .footer {
   height: 160px;
@@ -128,9 +145,11 @@
 }
 #player .footer .area-bar .time-start {
   order: 1;
+  margin-right: 12px;
 }
 #player .footer .area-bar .time-end {
   order: 3;
+  margin-left: 10px;
 }
 #player .footer .area-bar .bar {
   order: 2;
@@ -138,10 +157,9 @@
   height: 4px;
   background: #3c3c3c;
   border-radius: 2px;
-  margin: 0 10px;
 }
 #player .footer .area-bar .bar .progress {
-  width: 20%;
+  width: 0;
   height: 100%;
   border-radius: 2px;
   background: #767676;
@@ -151,10 +169,10 @@
   content: "";
   position: absolute;
   right: 0;
-  top: -7px;
+  top: -4px;
   display: block;
-  width: 16px;
-  height: 16px;
+  width: 10px;
+  height: 10px;
   background: url("/progress.798a5c76.svg") 0 0 no-repeat;
   background-size: contain;
 }

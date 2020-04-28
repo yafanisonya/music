@@ -164,7 +164,305 @@ parcelRequire = (function (modules, cache, entry, globalName) {
     (t = document.createElement("div")).innerHTML = a, a = null, (e = t.getElementsByTagName("svg")[0]) && (e.setAttribute("aria-hidden", "true"), e.style.position = "absolute", e.style.width = 0, e.style.height = 0, e.style.overflow = "hidden", c = e, (o = document.body).firstChild ? (i = c, (n = o.firstChild).parentNode.insertBefore(i, n)) : o.appendChild(c));
   });
 }(window);
-},{}],"C:/Users/fanison/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{}],"src/js/swiper.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Swiper = function Swiper(node) {
+  _classCallCheck(this, Swiper);
+
+  if (!node) throw new Error('需传递绑定元素');
+  var root = typeof node === 'string' ? document.querySelector(node) : node;
+  var eventHub = {
+    'swipLeft': [],
+    'swipRight': []
+  };
+  var initX;
+  var newX;
+  var clock;
+
+  root.ontouchstart = function (e) {
+    initX = e.changedTouches[0].pageX;
+  };
+
+  root.ontouchmove = function (e) {
+    if (clock) clearInterval(clock);
+    clock = setTimeout(function () {
+      newX = e.changedTouches[0].pageX;
+
+      if (newX - initX > 50) {
+        eventHub['swipRight'].forEach(function (fn) {
+          return fn.bind(root)();
+        });
+      } else if (initX - newX > 50) {
+        eventHub['swipLeft'].forEach(function (fn) {
+          return fn.bind(root)();
+        });
+      }
+    }, 100);
+  };
+
+  this.on = function (type, fn) {
+    if (eventHub[type]) {
+      eventHub[type].push(fn);
+    }
+  };
+
+  this.off = function (type, fn) {
+    var index = eventHub[type].indexOf(fn);
+
+    if (index !== -1) {
+      eventHub[type].splice(index, 1);
+    }
+  };
+};
+
+var _default = Swiper;
+exports.default = _default;
+},{}],"src/js/index.js":[function(require,module,exports) {
+"use strict";
+
+require("./icons");
+
+var _swiper = _interopRequireDefault(require("./swiper"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var player =
+/*#__PURE__*/
+function () {
+  function player(node) {
+    var _this = this;
+
+    _classCallCheck(this, player);
+
+    this.root = typeof node === 'string' ? document.querySelector(node) : node;
+
+    this.$ = function (selector) {
+      return _this.root.querySelector(selector);
+    };
+
+    this.$$ = function (selector) {
+      return _this.root.querySelectorAll(selector);
+    };
+
+    this.songList = [];
+    this.currentIndex = 0;
+    this.audio = new Audio();
+    this.lyricsArr = [];
+    this.lyricIndex = -1;
+    this.start();
+    this.bind();
+  }
+
+  _createClass(player, [{
+    key: "start",
+    value: function start() {
+      var _this2 = this;
+
+      fetch('https://jirengu.github.io/data-mock/huawei-music/music-list.json').then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        _this2.songList = data;
+
+        _this2.loadSong();
+      });
+    }
+  }, {
+    key: "bind",
+    value: function bind() {
+      var self = this;
+
+      this.$('.btn-play-pause').onclick = function () {
+        if (this.classList.contains('playing')) {
+          self.audio.pause();
+          this.classList.remove('playing');
+          this.classList.add('pause');
+          this.querySelector('use').setAttribute('xlink:href', '#icon-play');
+        } else if (this.classList.contains('pause')) {
+          self.audio.play();
+          this.classList.remove('pause');
+          this.classList.add('playing');
+          this.querySelector('use').setAttribute('xlink:href', '#icon-pause');
+        }
+      };
+
+      this.$('.btn-pre').onclick = function () {
+        self.playPreSong();
+      };
+
+      this.$('.btn-next').onclick = function () {
+        self.playNextSong();
+      };
+
+      this.audio.ontimeupdate = function () {
+        self.locateLyric();
+        self.setProgressBar();
+      };
+
+      var swiper = new _swiper.default(this.$('.panel'));
+      swiper.on('swipLeft', function () {
+        this.classList.remove('panel1');
+        this.classList.add('panel2');
+      });
+      swiper.on('swipRight', function () {
+        this.classList.remove('panel2');
+        this.classList.add('panel1');
+      });
+    }
+  }, {
+    key: "loadSong",
+    value: function loadSong() {
+      var _this3 = this;
+
+      var songObj = this.songList[this.currentIndex];
+      this.$('.header h1').innerText = songObj.title;
+      this.$('.header p').innerText = songObj.author + '-' + songObj.albumn;
+      this.audio.src = songObj.url;
+
+      this.audio.onloadedmetadata = function () {
+        return _this3.$('.time-end').innerText = _this3.formateTime(_this3.audio.duration);
+      };
+
+      this.loadLyrics();
+    }
+  }, {
+    key: "playPreSong",
+    value: function playPreSong() {
+      var _this4 = this;
+
+      this.currentIndex = (this.songList.length + this.currentIndex - 1) % this.songList.length;
+      this.audio.src = this.songList[this.currentIndex].url;
+      this.loadSong();
+
+      this.audio.oncanplaythrough = function () {
+        return _this4.audio.play();
+      };
+
+      this.$('.btn-play-pause > use').setAttribute('xlink:href', '#icon-pause');
+    }
+  }, {
+    key: "playNextSong",
+    value: function playNextSong() {
+      var _this5 = this;
+
+      this.currentIndex = (this.songList.length + this.currentIndex + 1) % this.songList.length;
+      this.audio.src = this.songList[this.currentIndex].url;
+      this.loadSong();
+
+      this.audio.oncanplaythrough = function () {
+        return _this5.audio.play();
+      };
+
+      this.$('.btn-play-pause > use').setAttribute('xlink:href', '#icon-pause');
+    }
+  }, {
+    key: "loadLyrics",
+    value: function loadLyrics() {
+      var _this6 = this;
+
+      fetch(this.songList[this.currentIndex].lyric).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        _this6.setLyrics(data.lrc.lyric);
+
+        window.lyrics = data.lrc.lyric;
+      });
+    }
+  }, {
+    key: "locateLyric",
+    value: function locateLyric() {
+      var currentTime = this.audio.currentTime * 1000;
+      var nextLineTime = this.lyricsArr[this.lyricIndex + 1][0];
+
+      if (currentTime > nextLineTime && this.lyricIndex < this.lyricsArr.length - 1) {
+        this.lyricIndex++;
+        var node = this.$('[data-time="' + this.lyricsArr[this.lyricIndex][0] + '"]');
+        if (node) this.setLyricToCenter(node);
+        this.$$('.panel-effect .lyrics p')[0].innerText = this.lyricsArr[this.lyricIndex][1];
+        this.$$('.panel-effect .lyrics p')[1].innerText = this.lyricsArr[this.lyricIndex + 1] ? this.lyricsArr[this.lyricIndex + 1][1] : '';
+      }
+    }
+  }, {
+    key: "setLyrics",
+    value: function setLyrics(lyrics) {
+      this.lyricIndex = 0;
+      var fragment = document.createDocumentFragment();
+      var lyricsArr = [];
+      this.lyricsArr = lyricsArr;
+      lyrics.split(/\n/).filter(function (str) {
+        return str.match(/\[.+?\]/);
+      }).forEach(function (line) {
+        var str = line.replace(/\[.+?\]/g, '');
+        line.match(/\[.+?\]/g).forEach(function (t) {
+          t = t.replace(/[\[\]]/g, '');
+          var milliseconds = parseInt(t.slice(0, 2)) * 60 * 1000 + parseInt(t.slice(3, 5)) * 1000 + parseInt(t.slice(6));
+          lyricsArr.push([milliseconds, str]);
+        });
+      });
+      lyricsArr.filter(function (line) {
+        return line[1].trim() !== '';
+      }).sort(function (v1, v2) {
+        if (v1[0] > v2[0]) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }).forEach(function (line) {
+        var node = document.createElement('p');
+        node.setAttribute('data-time', line[0]);
+        node.innerText = line[1];
+        fragment.appendChild(node);
+      });
+      this.$('.panel-lyrics .container').innerHTML = '';
+      this.$('.panel-lyrics .container').appendChild(fragment);
+    }
+  }, {
+    key: "setLyricToCenter",
+    value: function setLyricToCenter(node) {
+      var translateY = node.offsetTop - this.$('.panel-lyrics').offsetHeight / 2;
+      translateY = translateY > 0 ? translateY : 0;
+      this.$('.panel-lyrics .container').style.transform = "translateY(-".concat(translateY, "px)");
+      this.$$('.panel-lyrics p').forEach(function (node) {
+        return node.classList.remove('current');
+      });
+      node.classList.add('current');
+    }
+  }, {
+    key: "setProgressBar",
+    value: function setProgressBar() {
+      var percent = this.audio.currentTime * 100 / this.audio.duration + '%';
+      this.$('.bar .progress').style.width = percent;
+      this.$('.time-start').innerText = this.formateTime(this.audio.currentTime);
+    }
+  }, {
+    key: "formateTime",
+    value: function formateTime(secondsTotal) {
+      var minutes = parseInt(secondsTotal / 60);
+      minutes = minutes >= 10 ? '' + minutes : '0' + minutes;
+      var seconds = parseInt(secondsTotal % 60);
+      seconds = seconds >= 10 ? '' + seconds : '0' + seconds;
+      return minutes + ':' + seconds;
+    }
+  }]);
+
+  return player;
+}();
+
+new player('#player');
+},{"./icons":"src/js/icons.js","./swiper":"src/js/swiper.js"}],"C:/Users/fanison/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -192,7 +490,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "9904" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "7922" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -368,5 +666,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["C:/Users/fanison/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/js/icons.js"], null)
-//# sourceMappingURL=/icons.3ba10e46.js.map
+},{}]},{},["C:/Users/fanison/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/js/index.js"], null)
+//# sourceMappingURL=/js.d818e0ef.js.map

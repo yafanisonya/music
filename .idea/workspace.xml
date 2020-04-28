@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bc5b4794-9ed7-4e90-bbba-bca77b04fcf1" name="Default Changelist" comment="" />
+    <list default="true" id="bc5b4794-9ed7-4e90-bbba-bca77b04fcf1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/fanison.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cache/80/d5303e9f222fec449ef6661b8fc25e.json" beforeDir="false" afterPath="$PROJECT_DIR$/.cache/80/d5303e9f222fec449ef6661b8fc25e.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cache/e2/8110d93213d398dd3f79f7e224e544.json" beforeDir="false" afterPath="$PROJECT_DIR$/.cache/e2/8110d93213d398dd3f79f7e224e544.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cache/fd/2487e9bbbbded30ce899abcb3afeac.json" beforeDir="false" afterPath="$PROJECT_DIR$/.cache/fd/2487e9bbbbded30ce899abcb3afeac.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/music.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/music.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/icons.3ba10e46.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/icons.3ba10e46.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/scss.8c25d549.css" beforeDir="false" afterPath="$PROJECT_DIR$/dist/scss.8c25d549.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/scss.8c25d549.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/scss.8c25d549.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/scss.8c25d549.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/scss.8c25d549.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/scss.8c25d549.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/scss.8c25d549.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/index.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="ProjectId" id="1ajgmGeC5liGHLes2FJAaKLeM3Y" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -18,6 +37,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -38,17 +58,45 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1587254574416</updated>
-      <workItem from="1587254580449" duration="26081000" />
+      <workItem from="1587254580449" duration="26971000" />
+      <workItem from="1587388566328" duration="1640000" />
+      <workItem from="1587639364991" duration="3298000" />
+      <workItem from="1587687715331" duration="15395000" />
+      <workItem from="1588079876336" duration="1818000" />
     </task>
+    <task id="LOCAL-00001" summary="实现歌词切换">
+      <created>1587697912194</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1587697912194</updated>
+    </task>
+    <task id="LOCAL-00002" summary="实现播放进度条">
+      <created>1587718820996</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1587718820996</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="实现歌词切换" />
+    <MESSAGE value="实现播放进度条" />
+    <option name="LAST_COMMIT_MESSAGE" value="实现播放进度条" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="622" y="9" width="672" height="678" key="search.everywhere.popup" timestamp="1587282924323">
+    <state x="496" y="0" key="CommitChangelistDialog2" timestamp="1587718819277">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state x="622" y="9" width="672" height="678" key="search.everywhere.popup/0.0.1280.689@0.0.1280.689" timestamp="1587282924323" />
+    <state x="496" y="0" key="CommitChangelistDialog2/0.0.1280.689@0.0.1280.689" timestamp="1587718819277" />
+    <state x="623" y="9" width="672" height="678" key="search.everywhere.popup" timestamp="1587711438543">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state x="623" y="9" width="672" height="678" key="search.everywhere.popup/0.0.1280.689@0.0.1280.689" timestamp="1587711438543" />
   </component>
 </project>
